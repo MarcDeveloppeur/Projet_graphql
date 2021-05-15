@@ -5,7 +5,7 @@ const app =express();
 const port=5000
 
 //Middlewares
-app.use(express.json({extended:true,encodeURI:true}))
+app.use(express.json())
 
 //Router
 app.use('/app',Routes)
