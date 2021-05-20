@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import { Person } from "./Models/PersonModel";
+import { Ville } from "./Models/VilleModel";
 
 const PersonSequelize = new Sequelize({
     host: 'localhost',
@@ -7,7 +8,7 @@ const PersonSequelize = new Sequelize({
     database: 'database',
     username: 'postgres',
     password: 'MarcRAMADISON',
-    models: [Person],
+    models: [Person,Ville],
     dialect:'postgres'
 })
 

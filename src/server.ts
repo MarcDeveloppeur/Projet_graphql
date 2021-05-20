@@ -1,5 +1,6 @@
 import { PersonSequelize } from "./sequelize";
-import Routes from './Routers/Routes';
+import personRoutes from './Routers/PersonRoutes';
+import villeRoutes from './Routers/VilleRoutes';
 const express =require('express');
 const app =express();
 const port=5000
@@ -8,7 +9,8 @@ const port=5000
 app.use(express.json())
 
 //Router
-app.use('/app',Routes)
+app.use('/PersonAPI',personRoutes)
+app.use('/VilleAPI',villeRoutes)
 
 
 

@@ -2,7 +2,7 @@ import { find } from "../Functions/Find";
 import { Person } from "../Models/PersonModel";
 
 export const getAll = async (req: any, res: any): Promise<void> => {
-  for await (const data of find(0, 30)) {
+  for await (const data of find(0, 30,Person)) {
     res.status(200).send(data);
   }
 };

@@ -1,4 +1,5 @@
-import { Column, DataType, Table, Model } from "sequelize-typescript";
+import { Column, DataType, Table, Model, ForeignKey } from "sequelize-typescript";
+import { Ville } from "./VilleModel";
 
 @Table({ tableName: "Person", timestamps: true })
 export class Person extends Model<Person, Partial<Person>>{
@@ -13,4 +14,8 @@ export class Person extends Model<Person, Partial<Person>>{
 
     @Column({ type: DataType.INTEGER, field: 'age' })
     age: number | undefined
+
+    @ForeignKey(()=>Ville)
+    @Column({type:DataType.INTEGER, field:"id_Ville"})
+    idVille:number | undefined
 }
