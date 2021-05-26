@@ -1,6 +1,8 @@
 import { PersonSequelize } from "./sequelize";
-import personRoutes from './Routers/PersonRoutes';
-import villeRoutes from './Routers/VilleRoutes';
+import { graphqlHTTP } from "express-graphql";
+import { GraphQLSchema } from "graphql";
+import Query from "./GraphRouters/Query";
+import Mutation from "./GraphRouters/Mutation";
 const express =require('express');
 const app =express();
 const port=5000
@@ -8,10 +10,17 @@ const port=5000
 //Middlewares
 app.use(express.json())
 
-//Router
-app.use('/PersonAPI',personRoutes)
-app.use('/VilleAPI',villeRoutes)
+//Graph schema
+const schema= new GraphQLSchema({
+    query:Query,
+    mutation:Mutation
+})
 
+//graph endpoint
+app.use('/graphql',graphqlHTTP({
+    graphiql:true,
+    schema:schema
+}))
 
 
 app.listen(port,async ()=>{

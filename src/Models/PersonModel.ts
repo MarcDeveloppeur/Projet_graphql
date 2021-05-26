@@ -2,7 +2,7 @@ import { Column, DataType, Table, Model, ForeignKey } from "sequelize-typescript
 import { Ville } from "./VilleModel";
 
 @Table({ tableName: "Person", timestamps: true })
-export class Person extends Model<Person, Partial<Person>>{
+export class PersonModel extends Model<PersonModel, Partial<PersonModel>>{
     @Column({ type: DataType.INTEGER, field: 'id', autoIncrement: true, primaryKey: true })
     id: number | undefined
 

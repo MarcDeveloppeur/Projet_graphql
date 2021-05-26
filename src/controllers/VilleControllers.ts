@@ -4,15 +4,13 @@ import { Ville } from "../Models/VilleModel";
 export const getAllTown = async (req: any, res: any): Promise<void> => {
 
     for await (const data of find(0,10,Ville)){
-        res.status(200).send(data)
+        return(data)
     }
 
 };
 
-export const addVille = async (req: any, res: any): Promise<void> => {
-  if (req.body) {
-
-      const {nomVille,codePostal}=req.body
+export const addVille = async (nomVille:string,codePostal:string): Promise<any> => {
+  if (nomVille && codePostal) {
 
     const ville = new Ville({
       nomVille:nomVille,
@@ -20,6 +18,6 @@ export const addVille = async (req: any, res: any): Promise<void> => {
     });
 
     const done=await ville.save();
-    if(done) res.status(200).send({Message:"Ville enregistrée"})
+    if(done) return(done)
   }
 };

@@ -1,51 +1,76 @@
 import { find } from "../Functions/Find";
-import { Person } from "../Models/PersonModel";
+import { PersonModel } from "../Models/PersonModel";
+
+interface PersonInterface {
+  nom: string;
+  prenom: string;
+  age: number;
+  idVille: number;
+}
 
 export const getAll = async (req: any, res: any): Promise<void> => {
-  for await (const data of find(0, 30,Person)) {
-    res.status(200).send(data);
+  for await (const data of find(0, 30, PersonModel)) {
+    return data;
   }
 };
 
-export const addPerson = async (req: any, res: any): Promise<void> => {
-  if (req.body) {
-    const person = new Person({
-      nom: req.body.nom,
-      prenom: req.body.prenom,
-      age: req.body.age,
+export const addPerson = async (
+  nom: string,
+  prenom: string,
+  age: number,
+  idVille: number
+): Promise<any> => {
+  if (nom && prenom && age && idVille) {
+    const person = new PersonModel({
+      nom: nom,
+      prenom: prenom,
+      age: age,
+      idVille: idVille,
     });
     const done = await person.save();
-    if (done) res.status(200).send("enregistrement éffectué");
+    if (done) {
+      return done;
+    }
   }
 };
 
-export const getOne = async (req: any, res: any): Promise<void> => {
-  const data: object | null = await Person.findOne({
-    where: { id: req.params.id },
+export const getOne = async (pId: number): Promise<any> => {
+  const data: object | null = await PersonModel.findOne({
+    where: { id: pId },
   });
   if (data) {
-    res.status(200).send(data);
+    return data;
   } else {
-    res.status(404).send({ Message: "Person not found" });
+    return { Message: "Person not found" };
   }
 };
 
-export const deleteOne = async (req: any, res: any): Promise<any> => {
-  const done = await Person.destroy({ where: { id: req.params.id } });
-  if (done) res.status(200).send({ Message: "Person deleted" });
+export const deleteOnePerson = async (pId: number): Promise<boolean> => {
+  const done = await PersonModel.destroy({ where: { id: pId } });
+  if (done) {
+    return true;
+  } else return false;
 };
 
-export const update = async (req: any, res: any): Promise<any> => {
-  if (req.body) {
-    const { nom, prenom, age } = req.body;
-
-    Person.update(
+export const update = async (
+  nom: string,
+  prenom: string,
+  age: number,
+  idVille: number,
+  id: number
+): Promise<any> => {
+  if (nom && prenom && age && idVille && id) {
+    const done=PersonModel.update(
       {
         nom: nom,
         prenom: prenom,
         age: age,
+        idVille: idVille,
       },
-      { where: { id: req.params.id } }
+      { where: { id: id } }
     );
+    if(done) {
+      return true
+    }else return false
   }
 };
